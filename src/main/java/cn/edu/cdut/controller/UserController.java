@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserController {
     @GetMapping("/hello")
-    public String hello() {
-        return "hello";
+    public String hello(String name, String password) {
+        return "欢迎 " + name + " 访问, 你的密码是：" + password;
     }
 }
