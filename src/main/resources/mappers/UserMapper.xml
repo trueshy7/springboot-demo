@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.cdut.mapper.UserMapper">
+    <sql id="selectSql">
+        select id,username,password,email,age from user
+    </sql>
+
+    <select id="getUserById" resultType="User" parameterType="int">
+        <include refid="selectSql"></include>
+        where id = #{id}
+    </select>
+    <select id="getUserByUsername" resultType="User" parameterType="user">
+        <include refid="selectSql"></include>
+        where username = #{username}
+    </select>
+
+    <select id="selectUserByCondition" parameterType="User" resultType="User">
+        <include refid="selectSql"></include>
+        <where>
+            <if test="id != null">
+                and id=#{id}
+            </if>
+            <if test="username != null  and username!='' ">
+                and username=#{username}
+            </if>
+            <if test="password != null   and password!='' ">
+                and password=#{password}
+            </if>
+            <if test="email != null and   email != '' ">
+                and email=#{email}
+            </if>
+            <if test="age != null">
+                and age=#{age}
+            </if>
+        </where>
+    </select>
+
+    <update id="updateUserById" parameterType="user">
+        update user
+        set username=#{username},
+            password=#{password},
+            email=#{email},
+            age=#{age}
+        where id = #{id}
+    </update>
+
+    <update id="updateById" parameterType="user">
+        update user
+        set password=#{password}
+        where id = #{id}
+    </update>
+
+    <insert id="insertUser" parameterType="user">
+        INSERT INTO user (username, password, email, age)
+        VALUES (#{username}, #{password}, #{email}, #{age})
+    </insert>
+
+    <delete id="deleteUserById" parameterType="int">
+        delete
+        from user
+        where id = #{id}
+    </delete>
+
+</mapper>
