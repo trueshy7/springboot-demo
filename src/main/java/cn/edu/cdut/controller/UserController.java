@@ -1,27 +1,24 @@
 package cn.edu.cdut.controller;
 
+import cn.edu.cdut.pojo.Result;
 import cn.edu.cdut.pojo.User;
 import cn.edu.cdut.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 //控制前面请求
 @RestController
 @RequestMapping("/user")
+@CrossOrigin
 public class UserController {
     @Autowired
     private IUserService userService;
-    @GetMapping("/login")
-    public String login(String name,String password) {
-        User user = new User();
-        user.setUsername(name);
-        user.setPassword(password);
-        return userService.login(user);
+    @PostMapping("/login")
+    public Result login(@RequestBody User user) {
+        userService.login(user.getUsername(),user.getPassword());
+        return new Result(200,"登陆成功",null);
     }
     @GetMapping("/find")
     public List<User> find(@RequestParam(required = false) Integer id,
