@@ -7,5 +7,8 @@ import java.util.List;
 
 public interface IUserService extends IService<User> {
     void login(String username, String password);
-    List<User> find(User user);
+    List<User> getUserList(User user);
+    boolean deleteUserById(int id);
+    boolean addUser(User user);
+    boolean updateUser(User user);
 }

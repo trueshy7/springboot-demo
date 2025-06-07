@@ -28,18 +28,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    public List<User> find(User user) {
+    public List<User> getUserList(User user) {
         Map<String,Object> map=new HashMap<>();
-        if(user.getUsername()!=null){
+        if(user.getUsername()!=null&&user.getUsername()!=""){
             map.put("username",user.getUsername());
         }
-        if(user.getPassword()!=null){
+        if(user.getPassword()!=null&&user.getPassword()!=""){
             map.put("password",user.getPassword());
         }
         if(user.getId()!=null){
             map.put("id",user.getId());
         }
-        if(user.getEmail()!=null){
+        if(user.getEmail()!=null&&user.getEmail()!=""){
             map.put("email",user.getEmail());
         }
         if(user.getAge()!=null){
@@ -47,5 +47,46 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         }
         List<User> users=baseMapper.selectByMap(map);
         return users;
+    }
+
+    @Override
+    public boolean deleteUserById(int id) {
+        User user=baseMapper.selectById(id);
+        if(user==null){
+            throw  new NullPointerException("用户不存在");
+        }
+        baseMapper.deleteById(id);
+        return true;
+    }
+
+    @Override
+    public boolean addUser(User user) {
+        if(user.getUsername()==null||user.getUsername()==""){
+            throw  new RuntimeException("请输入用户名");
+        }
+        HashMap map=new HashMap();
+        map.put("username",user.getUsername());
+        List<User> users=baseMapper.selectByMap(map);
+        if(users.size()>0){
+            System.out.println(baseMapper.selectByMap(map));
+            throw new RuntimeException("该用户名已被使用");
+        }
+        baseMapper.insert(user);
+        return true;
+    }
+
+    @Override
+    public boolean updateUser(User user) {
+        if(user.getId()==null){
+            throw new RuntimeException("用户不存在");
+        }
+        HashMap map=new HashMap();
+        map.put("username",user.getUsername());
+        List<User> users=baseMapper.selectByMap(map);
+        if(users.size()>0){
+            return false;
+        }
+        baseMapper.updateById(user);
+        return true;
     }
 }
