@@ -4,8 +4,6 @@ import cn.edu.cdut.interceptor.TokenInterceptor;
 import cn.edu.cdut.pojo.Result;
 import cn.edu.cdut.pojo.User;
 import cn.edu.cdut.service.IUserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +14,7 @@ import java.util.UUID;
 @RequestMapping("/user")
 @CrossOrigin
 public class UserController {
-    private static final Logger log = LoggerFactory.getLogger(UserController.class);
+
     @Autowired
     private IUserService userService;
 

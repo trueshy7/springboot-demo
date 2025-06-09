@@ -84,7 +84,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         map.put("username",user.getUsername());
         List<User> users=baseMapper.selectByMap(map);
         if(users.size()>0){
-            return false;
+           throw new RuntimeException("用户已经存在了");
         }
         baseMapper.updateById(user);
         return true;
