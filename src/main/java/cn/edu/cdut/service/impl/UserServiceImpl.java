@@ -36,8 +36,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         if(user.getPassword()!=null&&user.getPassword()!=""){
             map.put("password",user.getPassword());
         }
-        if(user.getId()!=null){
-            map.put("id",user.getId());
+        if(user.getUser_id()!=null){
+            map.put("id",user.getUser_id());
         }
         if(user.getEmail()!=null&&user.getEmail()!=""){
             map.put("email",user.getEmail());
@@ -77,7 +77,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     public boolean updateUser(User user) {
-        if(user.getId()==null){
+        if(user.getUser_id()==null){
             throw new RuntimeException("用户不存在");
         }
         HashMap map=new HashMap();
