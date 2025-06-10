@@ -2,7 +2,6 @@ package cn.edu.cdut.service;
 
 import cn.edu.cdut.pojo.User;
 import com.baomidou.mybatisplus.extension.service.IService;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -13,6 +12,8 @@ public interface IUserService extends IService<User> {
     List<User> getUserList(User user);
 
     boolean deleteUserById(int id);
+
+    boolean deleteUserById(Integer id);
 
     boolean addUser(User user);
 

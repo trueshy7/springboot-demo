@@ -7,10 +7,9 @@ import java.util.List;
 public interface IMusicService {
     List<Music> getMusicList(Music music);
 
-    boolean deleteMusicById(int music_id);
-
-
     boolean updateMusic(Music music);
+
+    boolean deleteMusicById(int id);
 
     boolean addMusic(Music music);
 

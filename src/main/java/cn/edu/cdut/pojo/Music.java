@@ -4,22 +4,24 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import lombok.ToString;
 
 import java.time.LocalDate;
 
 
 @Data
 @TableName("music")
+@ToString
 public class Music {
-    @TableId(type = IdType.AUTO)//TableId表示主键，括号内的参数表示自增长
-    private Integer music_id;
+    @TableId(type = IdType.AUTO,value="music_id")//TableId表示主键，括号内的参数表示自增长
+    private Integer musicId;
     private String title;
     private String artist;
     private String album;
     private String genre;
     private Integer duration;
-    private LocalDate release_date;
-    private String cover_url;
-    private String file_url;
-    private String upload_time;
+    private LocalDate releaseDate;
+    private String coverUrl;
+    private String fileUrl;
+    private String uploadTime;
 }
