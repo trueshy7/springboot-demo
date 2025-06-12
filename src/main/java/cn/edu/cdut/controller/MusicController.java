@@ -41,7 +41,7 @@ public class MusicController {
     public Result updateMusic(@RequestBody Music music) {
         boolean updated = musicService.updateMusic(music);
         if (updated) {
-            return Result.success(music);
+            return Result.success("更新成功");
         } else return Result.error("更新失败");
     }
 }

@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 // 可以在启动类加上mapperscan
 public interface UserMapper extends BaseMapper<User> {
 
+    Integer selectByUserName(String username);
 }

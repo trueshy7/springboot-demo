@@ -22,7 +22,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             throw new NullPointerException();
         }
         User user = users.get(0);
-        System.out.println(user);
         if (!user.getPassword().equals(password)) {
             throw new RuntimeException("密码错误");
         }
@@ -37,7 +36,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         if (user.getEmail() != null && user.getEmail() != "") {
             map.put("email", user.getEmail());
         }
-        if (user.getAge()!=null) {
+        if (user.getAge() != null) {
             map.put("age", user.getAge());
         }
         List<User> users = baseMapper.selectByMap(map);
@@ -46,8 +45,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     public boolean deleteUserById(int id) {
-        int deleted=baseMapper.deleteById(id);
-        if(deleted>0){
+        int deleted = baseMapper.deleteById(id);
+        if (deleted > 0) {
             return true;
         }
         return false;
@@ -70,10 +69,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         }
         HashMap map = new HashMap();
         map.put("username", user.getUsername());
-        List<User> users = baseMapper.selectByMap(map);
-        if (users.size() > 0) {
-            System.out.println(baseMapper.selectByMap(map));
+        List<User> users;
+        users = baseMapper.selectByMap(map);
+        if (!users.isEmpty()) {
             throw new RuntimeException("该用户名已被使用");
+        }
+        map.clear();
+        map.put("email", user.getEmail());
+        users = baseMapper.selectByMap(map);
+        if (!users.isEmpty()) {
+            throw new RuntimeException("该邮箱已经注册过了");
         }
         baseMapper.insert(user);
         return true;
@@ -81,13 +86,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     public boolean updateUser(User user) {
-        if (user.getUserId() == null) {
-            throw new RuntimeException("用户不存在");
-        }
         HashMap map = new HashMap();
         map.put("username", user.getUsername());
         List<User> users = baseMapper.selectByMap(map);
-        if (users.size() > 0) {
+        if (users.size() > 0 && !user.getUsername().equals(users.get(0).getUsername())) {
             throw new RuntimeException("用户已经存在了");
         }
         baseMapper.updateById(user);

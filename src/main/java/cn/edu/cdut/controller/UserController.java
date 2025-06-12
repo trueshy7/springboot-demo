@@ -55,7 +55,6 @@ public class UserController {
 
     @PostMapping("/update")
     public Result updateUser(@RequestBody User user) {
-        System.out.println(user);
         if (!userService.updateUser(user)) {
             return Result.error("更新失败");
         }

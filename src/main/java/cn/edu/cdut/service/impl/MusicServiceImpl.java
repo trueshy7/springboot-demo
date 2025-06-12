@@ -29,7 +29,6 @@ public class MusicServiceImpl extends ServiceImpl<MusicMapper, Music> implements
             map.put("genre", music.getGenre());
         }
         List<Music> musics = baseMapper.selectByMap(map);
-        System.out.println(musics);
         return musics;
     }
 
